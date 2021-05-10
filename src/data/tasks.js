@@ -12,7 +12,7 @@ export default [
   {
     id: 4,
     label: 'Appeler Jean-Marc',
-    done: false,
+    done: true,
   },
   {
     id: 8,

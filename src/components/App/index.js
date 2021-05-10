@@ -8,28 +8,40 @@ import Tasks from '../Tasks';
 import './styles.scss';
 
 import data from '../../data/tasks';
-// == Composant
-const App = () => (
-  <div className="app">
-    <Form
-      inputText="texte en cours de saisi"
-      onInputChange={(textSaisi) => {
-        console.log(`${textSaisi}`);
-      }}
-      onFormSubmit={(evt) => {
-        console.log('le user à fait entré');
-      }}
-    />
-    <Counter total={3} />
-    <Tasks
-      list={data}
-      onTodoCheck={(todo) => {
-        console.log(todo);
-      }}
-    />
 
-  </div>
-);
+class TodoApp extends React.Component {
+  state = {
+    list: data,
+    inputText: 'je suis une todo en cours de',
+  }
+
+  render() {
+    const { list, inputText } = this.state;
+    const notDoneTodosCount = list.filter((todo) => !todo.done).length;
+
+    return (
+      <div className="app">
+        <Form
+          inputText={inputText}
+          onInputChange={(textSaisi) => {
+            console.log(`${textSaisi}`);
+          }}
+          onFormSubmit={() => {
+            console.log('le user à fait entré');
+          }}
+        />
+        <Counter total={notDoneTodosCount} />
+        <Tasks
+          list={list}
+          onTodoCheck={(todo) => {
+            console.log(todo);
+          }}
+        />
+
+      </div>
+    );
+  }
+}
 
 // == Export
-export default App;
+export default TodoApp;
