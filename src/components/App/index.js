@@ -2,10 +2,10 @@
 import React from 'react';
 
 // == Import
-import './styles.css';
 import Counter from '../Counter';
 import Form from '../Form';
 import Tasks from '../Tasks';
+import './styles.scss';
 
 // == Composant
 const App = () => (
