@@ -66,6 +66,14 @@ class TodoApp extends React.Component {
     return [...notDone, ...done];
   }
 
+  handleTodoRemove = (todo) => {
+    const { list } = this.state;
+
+    const newList = list.filter((todoObject) => todoObject.id !== todo.id);
+
+    this.setState({ list: newList });
+  }
+
   render() {
     const { list, inputText } = this.state;
     // Je stocke dans cette variable la longueur des todos qui ne sont !done
@@ -81,6 +89,7 @@ class TodoApp extends React.Component {
         <Tasks
           list={this.getTodosSorted()}
           onTodoCheck={this.handleTodoCheck}
+          onTodoRemove={this.handleTodoRemove}
         />
       </div>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-const Tasks = ({ list, onTodoCheck }) => (
+const Tasks = ({ list, onTodoCheck, onTodoRemove }) => (
 
   <ul className="todo-list">
     {
@@ -17,6 +17,15 @@ const Tasks = ({ list, onTodoCheck }) => (
             }}
           />
           <span className="todo--text">{todoObject.label}</span>
+          <button
+            type="button"
+            className="todo--remove"
+            onClick={() => {
+              onTodoRemove(todoObject);
+            }}
+          >
+            X
+          </button>
         </li>
       ))
     }
@@ -32,6 +41,7 @@ Tasks.propTypes = {
     done: PropTypes.bool.isRequired,
   })).isRequired,
   onTodoCheck: PropTypes.func.isRequired,
+  onTodoRemove: PropTypes.func.isRequired,
 };
 
 export default Tasks;

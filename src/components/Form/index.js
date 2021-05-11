@@ -2,24 +2,36 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 
-const Form = ({ inputText, onInputChange, onFormSubmit }) => (
-  <form onSubmit={(evt) => {
-    evt.preventDefault();
-    onFormSubmit();
-  }}
-  >
-    <input
-      className="todo-input"
-      type="text"
-      placeholder="Saisir une tâche"
-      value={inputText}
-      onChange={(evt) => {
-        const textSaisi = evt.target.value;
-        onInputChange(textSaisi);
+class Form extends React.Component {
+  monInput = React.createRef();
+
+  componentDidMount() {
+    this.monInput.current.focus();
+  }
+
+  render() {
+    const { onFormSubmit, onInputChange, inputText } = this.props;
+    return (
+      <form onSubmit={(evt) => {
+        evt.preventDefault();
+        onFormSubmit();
       }}
-    />
-  </form>
-);
+      >
+        <input
+          ref={this.monInput}
+          className="todo-input"
+          type="text"
+          placeholder="Saisir une tâche"
+          value={inputText}
+          onChange={(evt) => {
+            const textSaisi = evt.target.value;
+            onInputChange(textSaisi);
+          }}
+        />
+      </form>
+    );
+  }
+}
 
 Form.propTypes = {
   inputText: PropTypes.string.isRequired,
