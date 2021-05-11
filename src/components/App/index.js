@@ -60,10 +60,12 @@ class TodoApp extends React.Component {
   getTodosSorted = () => {
     const { list } = this.state;
 
-    const notDone = list.filter((todoObject) => !todoObject.done);
-    const done = list.filter((todoObject) => todoObject.done);
+    const favAndNotDone = list.filter((todoObject) => !todoObject.done && todoObject.fav);
+    const notDone = list.filter((todoObject) => !todoObject.done && !todoObject.fav);
+    const favAndDone = list.filter((todoObject) => todoObject.done && todoObject.fav);
+    const done = list.filter((todoObject) => todoObject.done && !todoObject.fav);
 
-    return [...notDone, ...done];
+    return [...favAndNotDone, ...notDone, ...favAndDone, ...done];
   }
 
   handleTodoRemove = (todo) => {
@@ -72,6 +74,22 @@ class TodoApp extends React.Component {
     const newList = list.filter((todoObject) => todoObject.id !== todo.id);
 
     this.setState({ list: newList });
+  }
+
+  handleTodoFav = (todo) => {
+    const { list } = this.state;
+    const newList = list.map((todoObject) => {
+      if (todoObject.id === todo.id) {
+        return {
+          ...todoObject,
+          fav: !todoObject.fav,
+        };
+      }
+      return todoObject;
+    });
+    this.setState({
+      list: newList,
+    });
   }
 
   render() {
@@ -90,6 +108,7 @@ class TodoApp extends React.Component {
           list={this.getTodosSorted()}
           onTodoCheck={this.handleTodoCheck}
           onTodoRemove={this.handleTodoRemove}
+          onTodoFav={this.handleTodoFav}
         />
       </div>
     );

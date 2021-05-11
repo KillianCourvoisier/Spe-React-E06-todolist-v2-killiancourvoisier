@@ -15,6 +15,9 @@
   &--done {
     opacity: 0.5;
   }
+  &--isFavorite {
+    background-color: #f0f;
+  }
 
   &--text {
     margin-left: 0.5em;
