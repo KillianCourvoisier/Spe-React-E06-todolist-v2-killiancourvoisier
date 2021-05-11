@@ -57,6 +57,15 @@ class TodoApp extends React.Component {
     });
   }
 
+  getTodosSorted = () => {
+    const { list } = this.state;
+
+    const notDone = list.filter((todoObject) => !todoObject.done);
+    const done = list.filter((todoObject) => todoObject.done);
+
+    return [...notDone, ...done];
+  }
+
   render() {
     const { list, inputText } = this.state;
     // Je stocke dans cette variable la longueur des todos qui ne sont !done
@@ -70,7 +79,7 @@ class TodoApp extends React.Component {
         />
         <Counter total={notDoneTodosCount} />
         <Tasks
-          list={list}
+          list={this.getTodosSorted()}
           onTodoCheck={this.handleTodoCheck}
         />
       </div>
